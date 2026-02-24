@@ -1,0 +1,42 @@
+name: "Meshtastic BLE Bridge"
+version: "1.0.0"
+slug: meshtastic_ble_bridge
+description: "Expose Meshtastic over BLE as Meshtastic TCP (port 4403) using yeraze/meshtastic-ble-bridge"
+url: "https://github.com/Yeraze/meshtastic-ble-bridge"
+arch:
+  - aarch64
+  - amd64
+  - armv7
+  - armhf
+  - i386
+
+startup: services
+boot: auto
+init: false
+
+# Needs access to host bluetooth via D-Bus
+host_dbus: true
+
+# Equivalent to Docker privileged in many cases; upstream uses --privileged
+full_access: true
+
+ports:
+  4403/tcp: 4403
+ports_description:
+  4403/tcp: "Meshtastic TCP bridge port"
+
+options:
+  ble_address: ""
+  port: 4403
+  cache_nodes: false
+  max_cache_nodes: 500
+  verbose: true
+  scan_only: false
+
+schema:
+  ble_address: "str"
+  port: "int(1,65535)"
+  cache_nodes: "bool"
+  max_cache_nodes: "int(1,5000)"
+  verbose: "bool"
+  scan_only: "bool"
